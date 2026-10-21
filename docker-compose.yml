@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: youtube-postgres
+    environment:
+      POSTGRES_USER: youtube
+      POSTGRES_PASSWORD: youtube
+      POSTGRES_DB: youtube_history
+    ports:
+      - "5432:5432"
+    volumes:
+      - youtube_pg_data_18:/var/lib/postgresql
+    networks:
+      - youtube-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: youtube-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@youtube.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - youtube-net
+
+volumes:
+  youtube_pg_data_18:
+
+networks:
+  youtube-net:
